@@ -1735,6 +1735,11 @@
   "resolved" "https://registry.npmjs.org/triple-beam/-/triple-beam-1.3.0.tgz"
   "version" "1.3.0"
 
+"typescript@^4.7.0-beta":
+  "integrity" "sha512-m+CNL8lzHyHDxYYDTI+pm5hw5/bufYVGan2bokPyJY/y9C/4W/PCWMtYZ0vV9fLXbEL57elMeoaz9Evxs8UQ+A=="
+  "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.7.0-beta.tgz"
+  "version" "4.7.0-beta"
+
 "unique-filename@^1.1.1":
   "integrity" "sha512-Vmp0jIp2ln35UTXuryvjzkjGdRyf9b2lTXuSYUiPmzRcl3FDtYqAwOnTJkAngD9SWhnoJzDbTKwaOrZ+STtxNQ=="
   "resolved" "https://registry.npmjs.org/unique-filename/-/unique-filename-1.1.1.tgz"

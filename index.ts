@@ -1,28 +1,39 @@
 import { Lightclient, LightclientEvent } from "@lodestar/light-client";
 import { getClient } from "@lodestar/api";
 import { fromHexString, toHexString } from "@chainsafe/ssz";
-import { chainConfig } from "./config";
 import { config as configDefault } from "@lodestar/config/default";
+
+import { chainConfig } from "./config.js";  // for some reason this needs to be .js
 import { createIChainForkConfig } from "@lodestar/config";
-const genesisData = {
-    genesisTime: 1606824023,
-    genesisValidatorsRoot: "0x4b363db94e286120d76eb905340fdd4e54bfe9f06bf33ff6cf5ad27f511bfe95"
+
+async function main() {
+    const genesisData = {
+        genesisTime: 1606824023,
+        genesisValidatorsRoot: "0x4b363db94e286120d76eb905340fdd4e54bfe9f06bf33ff6cf5ad27f511bfe95"
+    }
+    
+    const beaconApiUrl = "https://lodestar-mainnet.chainsafe.io";
+    
+    const config = createIChainForkConfig(chainConfig);
+    const client = await Lightclient.initializeFromCheckpointRoot({
+        config,
+        logger: undefined,
+        beaconApiUrl,
+        genesisData,
+        checkpointRoot: fromHexString("428192ee7dc9d5724851ce07d76190c162eff6b747d2dfab991bf7db54b9994f")
+    });
+
+    client.start();
+
+    client.emitter.on(LightclientEvent.head, (head) => {
+        console.log("New Header:", head)
+    });
+    
+    // const client2 = await getClient({ baseUrl: beaconApiUrl }, { config: configDefault });
 }
 
-const beaconApiUrl = "https://lodestar-mainnet.chainsafe.io";
+main()
 
-// const { genesisData, chainConfig } = await getNetworkData(network, beaconApiUrl);
-const config = createIChainForkConfig(chainConfig);
-
-const client1 = Lightclient.initializeFromCheckpointRoot({
-    config,
-    logger: undefined,
-    beaconApiUrl,
-    genesisData,
-    checkpointRoot: fromHexString("428192ee7dc9d5724851ce07d76190c162eff6b747d2dfab991bf7db54b9994f")
-});
-
-const client2 = getClient({ baseUrl: beaconApiUrl }, { config: configDefault });
 
 
 
